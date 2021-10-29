@@ -1,14 +1,20 @@
 use std::iter::FromIterator;
 
+#[derive(Debug)]
+
+struct Node<T> {
+    data: T,
+    next: Option<Box<Node<T>>>,
+}
 pub struct SimpleLinkedList<T> {
     // Delete this field
     // dummy is needed to avoid unused parameter error during compilation
-    dummy: ::std::marker::PhantomData<T>,
+    head : Option<Box<Node<T>>>,
 }
 
 impl<T> SimpleLinkedList<T> {
     pub fn new() -> Self {
-        unimplemented!()
+        SimpleLinkedList{head : None}
     }
 
     // You may be wondering why it's necessary to have is_empty()
@@ -17,15 +23,26 @@ impl<T> SimpleLinkedList<T> {
     // whereas is_empty() is almost always cheap.
     // (Also ask yourself whether len() is expensive for SimpleLinkedList)
     pub fn is_empty(&self) -> bool {
-        unimplemented!()
+        self.head.is_none()
     }
 
     pub fn len(&self) -> usize {
-        unimplemented!()
+        let mut leng = 0;
+        let p = &self.head;
+        while (*p).is_some() {
+            leng += 1;
+        }
+        return leng;
+        
     }
 
-    pub fn push(&mut self, _element: T) {
-        unimplemented!()
+    pub fn push(&mut self, element: T) {
+        let old_node = self.head.take();
+        let new_node = Box::new(Node{
+            data : element,
+            next : old_node,
+        });
+        self.head = Some(new_node)
     }
 
     pub fn pop(&mut self) -> Option<T> {
@@ -38,6 +55,12 @@ impl<T> SimpleLinkedList<T> {
 
     pub fn rev(self) -> SimpleLinkedList<T> {
         unimplemented!()
+    }
+}
+
+impl<T> Default for SimpleLinkedList<T> {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
