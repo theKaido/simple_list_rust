@@ -28,29 +28,42 @@ impl<T> SimpleLinkedList<T> {
 
     pub fn len(&self) -> usize {
         let mut leng = 0;
-        let p = &self.head;
-        while (*p).is_some() {
-            leng += 1;
+        let p = &self.head;// p ici parcour la liste
+        while (*p).is_some() {//si p a une valeur dans ces cellule 
+            leng += 1;// on ajoute 1 au compteur leng
         }
-        return leng;
+        return leng;// on return leng a la fin du parcours
         
     }
 
     pub fn push(&mut self, element: T) {
-        let old_node = self.head.take();
-        let new_node = Box::new(Node{
-            data : element,
-            next : old_node,
+        let old_node = self.head.take();// on récupere la valeur head avec le .take()
+        //.take() Takes the value out of the option, leaving a None in its place.
+        let new_node = Box::new(Node{  // on créer une nouvelle cellule 
+            data : element, // ici on ajoute la valeur
+            next : old_node,// ici on l'ajoute a notre linked list
         });
-        self.head = Some(new_node)
+        self.head = Some(new_node) // on retourne le parametre
     }
 
     pub fn pop(&mut self) -> Option<T> {
-        unimplemented!()
+        if let Some(mut node) = self.head.take() { //on verifie si node à une valeur dedans si oui on retire la valeur avec take()
+            self.head = node.next.take(); //on selectionne avec take le pointeur suivant que l'on va retiré
+            Some(node.data) // on regarde si il y'a une valeur grace à la fonction some
+        } else {
+            None // sinon on renvoie rien 
+        }
     }
 
+
     pub fn peek(&self) -> Option<&T> {
-        unimplemented!()
+       match &self.head {//on créer un pattern matching et onverifie les condition suivantes
+           None => None,//si il n'ya rien on return rien 
+           Some(a) => { //a appartient à la struct SimpleListe 
+               Some(&a.data)//si il ya quelchose on renvoie cette valeur
+           }
+
+       }
     }
 
     pub fn rev(self) -> SimpleLinkedList<T> {
