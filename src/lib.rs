@@ -28,10 +28,11 @@ impl<T> SimpleLinkedList<T> {
 
     pub fn len(&self) -> usize {
         let mut leng = 0;
-        let p = &self.head;// p ici parcour la liste
-        while (*p).is_some() {//si p a une valeur dans ces cellule 
+        let mut p = &self.head;// p ici parcour la liste
+        while let Some(a) = p {//si p a une valeur dans ces cellule 
+            p = &a.next; // on parcour la liste tant que la boucle while est vrai 
             leng += 1;// on ajoute 1 au compteur leng
-        }
+        }//un fois quil n'y a plus rien on retourne leng
         return leng;// on return leng a la fin du parcours
         
     }
@@ -67,7 +68,12 @@ impl<T> SimpleLinkedList<T> {
     }
 
     pub fn rev(self) -> SimpleLinkedList<T> {
-        unimplemented!()
+    let mut new_list = self; // Ici on créer tout simplement un Liste mutable qui va prendre en paramètre
+    let mut rev_list= Self::new();// on créer le conteneur des valeur inversé
+    while let Some(data) = new_list.pop(){//tant qu'il ya quelque chose dans data on va affiché sa valeur
+        rev_list.push(data);
+        }
+    return rev_list;
     }
 }
 
