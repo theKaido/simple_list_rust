@@ -85,12 +85,12 @@ impl<T> Default for SimpleLinkedList<T> {
 
 impl<T> FromIterator<T> for SimpleLinkedList<T> {
     fn from_iter<I: IntoIterator<Item = T>>(_iter: I) -> Self {
-        let mut list_to_iter = SimpleLinkedList::new();
-        for i in _iter  {
-            list_to_iter.push(i);
+        let mut list_to_iter = SimpleLinkedList::new(); // on créer notre liste à iter
+        for i in _iter  { //on parcour tout les element de _iter 
+            list_to_iter.push(i);// on ajoute la valeur de i dans la liste 
             
         }
-        return list_to_iter;
+        return list_to_iter;// on retourne cette liste
     }
 }
 
