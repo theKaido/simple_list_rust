@@ -1,4 +1,4 @@
-use std::iter::FromIterator;
+use std::{iter::FromIterator, vec};
 
 #[derive(Debug)]
 
@@ -106,7 +106,19 @@ impl<T> FromIterator<T> for SimpleLinkedList<T> {
 // demands more of the student than we expect at this point in the track.
 
 impl<T> From<SimpleLinkedList<T>> for Vec<T> {
+
+
     fn from(mut _linked_list: SimpleLinkedList<T>) -> Vec<T> {
-        unimplemented!()
+        //on essaye de créer un nouveau vec deja mutable de pref 
+        let mut contien_vec = vec![];
+        //aussi le noeud pour quil puisse en tirer la valeur 
+        let mut node;
+
+        //on verifie que si quelque chose en envoie la valeur quelquechose.data dans le vec 
+        for i in _linked_list.into(){//on transforme notre chaine _linked_list en Iterator
+            contien_vec.push(i);//on ajoute la valeur data dans le vecteur tant qu'on arrive pas à la fin de la liste
+            node = SimpleLinkedList{Head, head: todo!() };     // cellule suivante 
+        }
+        return contien_vec;
     }
 }
